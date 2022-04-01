@@ -2,12 +2,30 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   package="com.example.myapplication">
 
+  <uses-permission android:name="android.permission.INTERNET" />
+
   <application
+    android:name=".MyApp"
     android:allowBackup="true"
     android:icon="@mipmap/ic_launcher"
     android:label="@string/app_name"
     android:roundIcon="@mipmap/ic_launcher_round"
     android:supportsRtl="true"
-    android:theme="@style/Theme.MyApplication" />
+    android:theme="@style/Theme.MyApplication" >
+
+    <meta-data
+      android:name="com.example.myapplication.TMDB_API_TOKEN"
+      android:value="Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4YWFmMDNlZjMyZjI5NTMxN2M0NTZlMDQzZGVjY2UwZiIsInN1YiI6IjYyNDU5NjM5ODExNDBmMDA1Y2UzN2ZiMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.tdleYfq0L91AzacB8ms2lLhVkTV_KCJiSP5h6ZYolZM"/>
+
+    <activity android:name=".ui.activities.MoviesActivity"
+      android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+
+    </activity>
+
+  </application>
 
 </manifest>
