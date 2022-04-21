@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.data.models.Movies
 import com.example.myapplication.data.models.Results
@@ -57,7 +58,7 @@ class MoviesActivity : AppCompatActivity() {
         with(binding) {
             moviesRecyclerView.apply {
                 adapter = this@MoviesActivity.adapter
-                layoutManager = LinearLayoutManager(this@MoviesActivity, LinearLayoutManager.VERTICAL, false)
+                layoutManager = GridLayoutManager(this@MoviesActivity, 3)
             }
         }
     }
