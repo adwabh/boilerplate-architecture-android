@@ -5,6 +5,7 @@ buildscript {
         set("kotlin_version", "1.4.32")
         set("hilt_version", "2.38.1")
     }
+    val compose_version by extra("1.2.0")
     val kotlin_version: String by extra
     val hilt_version: String by extra
 

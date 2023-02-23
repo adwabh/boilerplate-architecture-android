@@ -10,6 +10,7 @@ android {
     buildToolsVersion = "30.0.3"
     buildFeatures {
         viewBinding = true
+        compose = true
     }
     defaultConfig {
         applicationId = "com.example.myapplication"
@@ -19,6 +20,9 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner("androidx.test.runner.AndroidJUnitRunner")
+        vectorDrawables {
+            useSupportLibrary = true
+        }
     }
     buildTypes {
         getByName("debug") {
@@ -34,10 +38,25 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.2.0"
+    }
+
+    packagingOptions {
+        excludes += listOf("**/*.dot", "**/*.kotlin_metadata")
+    }
 }
 
 dependencies {
 
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.1")
+    implementation("androidx.activity:activity-compose:1.3.1")
+    implementation("androidx.compose.ui:ui:${rootProject.extra["compose_version"]}")
+    implementation("androidx.compose.ui:ui-tooling-preview:${rootProject.extra["compose_version"]}")
+    implementation("androidx.compose.material3:material3:1.0.0-alpha11")
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4:${rootProject.extra["compose_version"]}")
+    debugImplementation("androidx.compose.ui:ui-tooling:${rootProject.extra["compose_version"]}")
+    debugImplementation("androidx.compose.ui:ui-test-manifest:${rootProject.extra["compose_version"]}")
     val lifecycle_version = "2.4.0"
     val arch_version = "2.1.0"
     val retrofitVersion = "2.9.0"
