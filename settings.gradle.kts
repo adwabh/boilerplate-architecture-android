@@ -15,6 +15,5 @@ dependencyResolutionManagement {
         gradlePluginPortal()
     }
 }
-rootProject.name = "nowinandroid"
 include(":app")
 rootProject.name = "My Application"
