@@ -11,10 +11,10 @@ buildscript {
 }
 
 plugins {
-    alias(libs.plugins.android.application) apply false
-    alias(libs.plugins.hilt) apply false
-    alias(libs.plugins.ksp) apply false
-//    alias(libs.plugins.kotlin.jvm) apply false
-//    alias(libs.plugins.kotlin.serialization) apply false
-//    alias(libs.plugins.secrets) apply false
+    id("com.example.myapplication")
+//    id("nowinandroid.android.application.compose")
+//    id("nowinandroid.android.application.jacoco")
+    id("com.example.myapplication.hilt")
+//    id("jacoco")
+//    id("nowinandroid.firebase-perf")
 }
