@@ -15,4 +15,22 @@ dependencies {
     compileOnly(libs.ksp.gradlePlugin)
 }
 
-gradlePlugin { }
+gradlePlugin {
+    plugins {
+        register("androidApplication") {
+            id = "myapplication.android.application"
+            implementationClass = "AndroidApplicationConventionPlugin"
+        }
+
+        register("androidHilt") {
+            id = "myapplication.android.hilt"
+            implementationClass = "AndroidHiltConventionPlugin"
+        }
+
+        register("androidApplicationCompose") {
+            id = "myapplication.android.application.compose"
+            implementationClass = "AndroidApplicationComposeConventionPlugin"
+        }
+    }
+
+}

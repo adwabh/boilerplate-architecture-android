@@ -9,7 +9,6 @@ data class Movies(
     @SerializedName("results") var results: List<Results> = arrayListOf(),
     @SerializedName("total_pages") var totalPages: Int? = null,
     @SerializedName("total_results") var totalResults: Int? = null
-
 )
 
 data class Results(
