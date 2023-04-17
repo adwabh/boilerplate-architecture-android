@@ -2,6 +2,7 @@
 plugins {
     id("myapplication.android.application")
     id("myapplication.android.application.compose")
+    id("myapplication.android.databinding")
 //    id("nowinandroid.android.application.jacoco")
 //    id("myapplication.android.library")
     id("myapplication.android.hilt")
@@ -22,6 +23,8 @@ android {
         }
     }
     namespace = "com.example.myapplication"
+
+
 }
 
 dependencies {
@@ -44,6 +47,11 @@ dependencies {
     implementation(libs.appcompat.resources)
     implementation(libs.retrofit.core)
     implementation(libs.retrofit.kotlin.serialization)
+    implementation(libs.okhttp.logging)
+    implementation(libs.recycler.view)
+    implementation(libs.imageLoader.glide)
+    implementation(libs.hilt.ext.work)
+    implementation(libs.work.manager)
 }
 
 buildscript {

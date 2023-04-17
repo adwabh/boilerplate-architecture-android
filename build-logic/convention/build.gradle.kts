@@ -21,6 +21,10 @@ gradlePlugin {
             id = "myapplication.android.application"
             implementationClass = "AndroidApplicationConventionPlugin"
         }
+        register("androidDataBinding") {
+            id = "myapplication.android.databinding"
+            implementationClass = "AndroidDataBindingPlugin"
+        }
 
         register("androidHilt") {
             id = "myapplication.android.hilt"
