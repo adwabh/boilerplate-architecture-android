@@ -8,5 +8,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NotesViewModel @Inject constructor(notesRepository: NotesRepository) : ViewModel() {
-    val stateFlow: StateFlow<NotesState> = notesDataRepository.notesState
+    val stateFlow: StateFlow<NotesState> = notesRepository.notesState
+}
+
+class NotesState {
+
 }

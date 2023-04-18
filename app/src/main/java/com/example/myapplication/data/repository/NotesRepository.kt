@@ -1,10 +1,14 @@
 package com.example.myapplication.data.repository
 
-import kotlinx.coroutines.flow.Flow
+import com.example.myapplication.ui.viewmodels.NotesState
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.StateFlow
 import java.time.OffsetDateTime
 
 interface NotesRepository {
-    fun getNotes(index: Int, offset: Int): Flow<NotesResponse>
+    val notesState: StateFlow<NotesState>
+
+    suspend fun getNotes(scope: CoroutineScope, index: Int, offset: Int): StateFlow<NotesResponse>
 }
 
 data class NotesResponse(

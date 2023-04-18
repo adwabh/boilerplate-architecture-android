@@ -8,7 +8,9 @@ internal fun Project.configureDataBinding(
 ) {
     commonExtension.apply {
         buildFeatures {
-            dataBinding.enable = true
+            dataBinding {
+                enable = true
+            }
         }
     }
 }
