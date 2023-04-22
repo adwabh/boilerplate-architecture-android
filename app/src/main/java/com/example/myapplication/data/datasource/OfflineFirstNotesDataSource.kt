@@ -1,6 +1,8 @@
 package com.example.myapplication.data.datasource
 
-class OfflineFirstNotesDataSource : NotesDataSource {
+import javax.inject.Inject
+
+class OfflineFirstNotesDataSource @Inject constructor() : NotesDataSource {
 
 }
 

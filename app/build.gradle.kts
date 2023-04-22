@@ -24,11 +24,12 @@ android {
     }
     namespace = "com.example.myapplication"
 
-
 }
 
 dependencies {
 //    api(libs.androidx.compose.material.iconsExtended)
+
+    //UI
     api(libs.androidx.compose.material3)
     api(libs.androidx.compose.foundation)
     api(libs.androidx.compose.foundation.layout)
@@ -39,19 +40,27 @@ dependencies {
     api(libs.androidx.compose.ui.util)
     api(libs.androidx.compose.runtime)
     api(libs.androidx.compose.runtime.livedata)
+
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.constraint.layout)
-    implementation(libs.gson.parser)
-    implementation(libs.gson.converter)
+    implementation(libs.recycler.view)
+    implementation(libs.imageLoader.glide)
     implementation(libs.appcompat.activity)
     implementation(libs.appcompat.resources)
+
+    // core
+    implementation(project(":core:common"))
+
+    implementation(libs.hilt.ext.work)
+    implementation(libs.work.manager)
+
+    //Network
+
+    implementation(libs.gson.parser)
+    implementation(libs.gson.converter)
     implementation(libs.retrofit.core)
     implementation(libs.retrofit.kotlin.serialization)
     implementation(libs.okhttp.logging)
-    implementation(libs.recycler.view)
-    implementation(libs.imageLoader.glide)
-    implementation(libs.hilt.ext.work)
-    implementation(libs.work.manager)
 }
 
 buildscript {

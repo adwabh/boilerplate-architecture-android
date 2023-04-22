@@ -1,5 +1,6 @@
 plugins {
     `kotlin-dsl`
+
 }
 
 group = "com.example.buildlogic"
@@ -20,6 +21,14 @@ gradlePlugin {
         register("androidApplication") {
             id = "myapplication.android.application"
             implementationClass = "AndroidApplicationConventionPlugin"
+        }
+        register("androidLibrary") {
+            id = "myapplication.android.library"
+            implementationClass = "AndroidLibraryConventionPlugin"
+        }
+        register("androidLibraryCompose") {
+            id = "myapplication.android.library.compose"
+            implementationClass = "AndroidLibraryComposeConventionPlugin"
         }
         register("androidDataBinding") {
             id = "myapplication.android.databinding"
