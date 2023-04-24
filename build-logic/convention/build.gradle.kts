@@ -44,6 +44,10 @@ gradlePlugin {
             id = "myapplication.android.application.compose"
             implementationClass = "AndroidApplicationComposeConventionPlugin"
         }
+        register("androidRoom") {
+            id = "myapplication.android.room"
+            implementationClass = "AndroidRoomConventionPlugin"
+        }
     }
 
 }

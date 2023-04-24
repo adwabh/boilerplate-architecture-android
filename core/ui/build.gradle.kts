@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.examplemyapplication.core.ui"
+    namespace = "com.example.myapplication.core.ui"
 }
 
 dependencies {
