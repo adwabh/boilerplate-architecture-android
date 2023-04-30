@@ -1,8 +1,9 @@
-package com.example.myapplication
+package com.example.myapplication.core.ui
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -39,14 +40,14 @@ fun NotesItem(
 fun NotesItemWithoutTitle(body: String = "") {
     Card (
         modifier = Modifier
-            .height(150.dp)
+            .fillMaxHeight()
             .fillMaxWidth()
             .clickable { },
         elevation = CardDefaults.cardElevation(2.dp)
     ) {
         Column (Modifier.padding(10.dp)){
             Text(
-                text = "body"
+                text = body
             )
         }
     }
@@ -65,13 +66,13 @@ fun NotesItemWithTitle(title: String = "", body: String = "") {
         Column (Modifier.padding(10.dp)){
             Text(
                 fontSize = 20.sp,
-                text = "title"
+                text = title
             )
             Spacer(modifier = Modifier
                 .height(10.dp)
                 .fillMaxWidth())
             Text(
-                text = "body"
+                text = body
             )
         }
     }

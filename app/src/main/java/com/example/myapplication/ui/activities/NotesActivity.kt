@@ -3,15 +3,20 @@ package com.example.myapplication.ui.activities
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.myapplication.NoteData
-import com.example.myapplication.NotesList
+import androidx.compose.ui.unit.dp
+import com.example.myapplication.core.ui.NoteData
+import com.example.myapplication.core.ui.NotesList
+import com.example.myapplication.core.ui.NotesTopBar
 import com.example.myapplication.ui.theme.MyApplicationTheme
 
 class NotesActivity : ComponentActivity() {
@@ -22,6 +27,12 @@ class NotesActivity : ComponentActivity() {
         notes = mutableListOf<NoteData>().apply {
             add(NoteData("G0010960", "Noteworthy", "Lorem ipsum dolor sit amet", false, emptyList()))
             add(NoteData("G0010961", "Nautilus", "Lorem ipsum dolor sit amet", false, emptyList()))
+            add(NoteData("G0010962", "Shopping", "Lorem ipsum dolor sit amet consehsjh jadkashladlsdald", false, emptyList()))
+            add(NoteData("G0010963", "Something", "Lorem ipsum dolor sit ametoiisnsjksbak asjjbkabckja", false, emptyList()))
+            add(NoteData("G0010964", "Noteworthy", "Lorem ipsum dolor sit amet ajbskjas ajksbbkjafbkabfk f aksbksajfbkjabfakjbbakfbkabkf akjbfkjabbaskbfkb", false, emptyList()))
+            add(NoteData("G0010965", "Nautilus", "Lorem ipsum dolor sit amet sabjkafbjbfkafbkjf", false, emptyList()))
+            add(NoteData("G0010966", "Shopping", "Lorem ipsum dolor sit amet consehsjh jadkashladlsdald jksddhlsa;sfhkmfhlk", false, emptyList()))
+            add(NoteData("G0010967", "Something", "Lorem ipsum dolor sit ametoiisnsjksbak asjjbkabckja vajsbjsaflalfkhaflskafhlfh ushhavjcvackcaskjc  ascbkjscakjc skbckabkcbacnaklcnaskc akscbkjcbakcsbcakjbskjcbjabckkc msc asckjsbckjabc", false, emptyList()))
         }
         setContent {
             MyApplicationTheme {
@@ -30,9 +41,12 @@ class NotesActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    NotesList(
-                        notes
-                    )
+                    Column {
+                        NotesTopBar()
+                        NotesList(
+                            notes
+                        )
+                    }
                 }
             }
         }
