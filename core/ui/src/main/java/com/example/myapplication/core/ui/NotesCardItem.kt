@@ -58,7 +58,7 @@ fun NotesItemWithoutTitle(body: String = "") {
 fun NotesItemWithTitle(title: String = "", body: String = "") {
     Card (
         modifier = Modifier
-            .height(150.dp)
+            .fillMaxHeight()
             .fillMaxWidth()
             .clickable { },
         elevation = CardDefaults.cardElevation(2.dp)
