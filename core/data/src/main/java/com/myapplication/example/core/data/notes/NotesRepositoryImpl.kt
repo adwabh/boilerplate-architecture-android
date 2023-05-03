@@ -1,4 +1,4 @@
-package com.example.myapplication.data.repository
+package com.myapplication.example.core.data.notes
 
 import com.example.myapplication.data.datasource.OfflineFirstNotesDataSource
 import com.example.myapplication.ui.viewmodels.NotesState

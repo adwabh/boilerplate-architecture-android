@@ -77,8 +77,3 @@ fun NotesItemWithTitle(title: String = "", body: String = "") {
         }
     }
 }
-
-data class CheckListItem(
-    val title: String,
-    val isChecked: Boolean
-)
