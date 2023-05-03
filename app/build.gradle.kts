@@ -29,6 +29,7 @@ android {
 dependencies {
 //    api(libs.androidx.compose.material.iconsExtended)
     implementation(project(":core:ui"))
+    implementation(project(":core:data"))
     //UI
     api(libs.androidx.compose.material3)
     api(libs.androidx.compose.foundation)

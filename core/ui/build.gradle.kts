@@ -9,6 +9,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:data"))
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.androidx.compose.runtime)
     implementation(libs.androidx.core.ktx)

@@ -3,4 +3,6 @@ plugins {
     id("myapplication.android.hilt")
 }
 android {}
-dependencies {}
+dependencies {
+    implementation(project(":core:network"))
+}
