@@ -1,5 +1,6 @@
 package com.myapplication.example.core.data.notes
 
+import com.example.myapplication.core.network.NotesApiClient
 import com.myapplication.example.core.data.notes.model.NoteData
 import com.myapplication.example.core.data.notes.model.User
 import kotlinx.coroutines.flow.Flow
@@ -7,32 +8,18 @@ import javax.inject.Inject
 
 interface NotesRepository {
     fun getNotes(user: User, index: Int, offset: Int): Flow<List<NoteData>>
+    suspend fun syncNotes(user: User): Boolean
 }
 
-class NotesRepositoryImpl @Inject constructor(): NotesRepository {
+class NotesRepositoryImpl @Inject constructor(
 
-    /*private var state: StateFlow<NotesState> = MutableStateFlow(NotesState())
-    override val notesState: StateFlow<NotesState>
-        get() = state
-
-    override suspend fun getNotes(scope: CoroutineScope, index: Int, offset: Int): StateFlow<NotesResponse> {
-
-        val stateIn = flowOf(
-            NotesResponse(
-                "",
-                "",
-                "",
-                "",
-                OffsetDateTime.now()
-            )
-        )
-        state = stateIn.map { res ->
-            NotesState()
-        }.stateIn(scope)
-        return stateIn.stateIn(scope)
-    }*/
+): NotesRepository {
     override fun getNotes(user: User, index: Int, offset: Int): Flow<List<NoteData>> {
+        TODO("Not yet implemented")
+    }
 
+    override suspend fun syncNotes(user: User): Boolean {
+        TODO("Not yet implemented")
     }
 
 }
