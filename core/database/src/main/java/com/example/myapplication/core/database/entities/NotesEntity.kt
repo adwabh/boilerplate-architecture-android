@@ -1,5 +1,6 @@
 package com.example.myapplication.core.database.entities
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -10,5 +11,5 @@ data class NotesEntity(
     val body: String,
     val type: String,
     val date: Long,
-    val user_id: String
+    @ColumnInfo(name = "user_id") val userId: String
 )

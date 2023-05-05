@@ -8,6 +8,6 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface NotesDao {
 
-    @Query("SELECT * FROM notes where user_id = :userId")
+    @Query("SELECT * FROM notes where userId = :userId")
     fun findNotes(userId: String) : Flow<List<NotesEntity>>
 }

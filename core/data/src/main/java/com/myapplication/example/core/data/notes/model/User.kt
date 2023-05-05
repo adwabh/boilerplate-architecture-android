@@ -1,5 +1,6 @@
 package com.myapplication.example.core.data.notes.model
 
-class  User {
-
-}
+data class  User(
+    val id: String,
+    val name: String
+)
