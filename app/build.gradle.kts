@@ -56,7 +56,7 @@ dependencies {
     implementation(libs.work.manager)
 
     //Network
-
+    implementation(libs.androidx.startup)
     implementation(libs.gson.parser)
     implementation(libs.gson.converter)
     implementation(libs.retrofit.core)
