@@ -9,7 +9,6 @@ interface GetNotesUseCase {
     fun getNotes(user: User) : Flow<List<NotesData>>
 }
 
-
 class GetNotesUseCaseImpl @Inject constructor(
     val repository: NotesRepository
 ): GetNotesUseCase {
