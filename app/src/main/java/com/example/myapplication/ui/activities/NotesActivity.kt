@@ -61,6 +61,9 @@ class NotesActivity : ComponentActivity() {
                         it
                     }
                 }
+                NotesList(
+                    notes
+                )
             }
         }
     }

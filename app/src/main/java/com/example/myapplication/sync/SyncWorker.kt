@@ -38,9 +38,11 @@ class SyncWorker @AssistedInject constructor(
         /**
          * Expedited one time work to sync data on app startup
          */
-        fun startUpSyncWork() =
-            OneTimeWorkRequestBuilder<SyncWorker>().setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
-                .setConstraints(SyncConstraints).setInputData(SyncWorker.delegatedData()).build()
+        fun startUpSyncWork() = OneTimeWorkRequestBuilder<SyncWorker>()
+                .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
+                .setConstraints(SyncConstraints)
+                .setInputData(delegatedData())
+                .build()
 
         private fun delegatedData(): Data = Data.Builder().putString(WORKER_CLASS_NAME, SyncWorker::class.qualifiedName).build()
     }

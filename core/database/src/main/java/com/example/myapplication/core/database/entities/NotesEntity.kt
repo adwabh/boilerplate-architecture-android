@@ -10,6 +10,7 @@ data class NotesEntity(
     val title: String,
     val body: String,
     val type: String,
+    val checkListItems: String,
     val date: Long,
     @ColumnInfo(name = "user_id") val userId: String
 )

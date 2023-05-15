@@ -8,4 +8,6 @@ android {
 dependencies {
     implementation(project(":core:network"))
     implementation(project(":core:database"))
+    implementation(libs.gson.converter)
+    implementation(libs.gson.parser)
 }

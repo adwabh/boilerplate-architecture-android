@@ -24,7 +24,7 @@ class NotesSync : Initializer<Sync> {
             enqueueUniqueWork(
                 SyncWorkName,
                 ExistingWorkPolicy.KEEP,
-                SyncWorker.,
+                SyncWorker.startUpSyncWork(),
             )
         }
 

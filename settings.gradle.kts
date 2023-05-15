@@ -22,5 +22,7 @@ include(":core:data")
 include(":core:network")
 include(":core:designsystem")
 include(":core:ui")
+include(":feature:home")
+include(":feature:edit")
 include(":core:database")
 rootProject.name = "My Application"
