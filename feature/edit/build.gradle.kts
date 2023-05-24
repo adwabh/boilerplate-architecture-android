@@ -12,4 +12,5 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.androidx.compose.runtime)
     implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.navigation.compose)
 }

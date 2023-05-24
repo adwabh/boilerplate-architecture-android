@@ -44,6 +44,7 @@ dependencies {
     api(libs.androidx.compose.runtime.livedata)
 
     implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.constraint.layout)
     implementation(libs.recycler.view)
     implementation(libs.imageLoader.glide)

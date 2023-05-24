@@ -1,14 +1,17 @@
 package com.example.myapplication.feature.home
 
 import androidx.activity.compose.setContent
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -32,24 +35,29 @@ fun HomeRoute(
 @Composable
 fun HomeScreen(modifier: Modifier, state: State<HomeState>) {
     val snackbarHostState = remember { SnackbarHostState() }
-    when(state.value) {
-        HomeState.LOADING -> TODO()
-        HomeState.SUCCESS -> {
+    when(val state = state.value) {
+        HomeState.LOADING -> {
+            CircularProgressIndicator()
+        }
+        is HomeState.SUCCESS -> {
             Scaffold(
+                modifier = modifier,
                 topBar = { NotesTopBar() },
                 snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
 
             ) {
                 paddingValues ->
                 paddingValues
-                NotesList(
-                    notes
-                )
+                NotesList(state.notes)
             }
         }
         HomeState.ERROR -> {
             LaunchedEffect(snackbarHostState) {
-                it
+                snackbarHostState.showSnackbar(
+                    //FIXME: remove hardcoded message
+                    message = "Something Went Wrong",
+                    duration = SnackbarDuration.Short
+                )
             }
         }
     }

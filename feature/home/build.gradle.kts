@@ -14,6 +14,7 @@ dependencies {
     implementation(libs.androidx.core.ktx)
 
     implementation(project(":core:ui"))
+    implementation(project(":core:common"))
     implementation(project(":core:data"))
 
     api(libs.androidx.compose.material3)
