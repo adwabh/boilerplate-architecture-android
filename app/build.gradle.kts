@@ -66,14 +66,14 @@ dependencies {
     implementation(libs.okhttp.logging)
 }
 
-buildscript {
-    repositories {
-        google()
-        mavenCentral()
-
-        // Android Build Server
-        maven { url = uri("../nowinandroid-prebuilts/m2repository") }
-    }
-
-}
+//buildscript {
+//    repositories {
+//        google()
+//        mavenCentral()
+//
+//        // Android Build Server
+//        maven { url = uri("../nowinandroid-prebuilts/m2repository") }
+//    }
+//
+//}
 

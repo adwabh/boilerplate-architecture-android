@@ -12,4 +12,4 @@ import java.util.Base64
 
 const val editScreenRoute: String = "com.example.myapplication.notee/id = {id}"
 
-fun NavController.navigateToEditNote(navOptions: NavOptions? = null, noteId:String) = navigate(editScreenRoute, args = listOf(navArgument(Uri.encode(noteId))))
+//fun NavController.navigateToEditNote(navOptions: NavOptions? = null, noteId:String) = navigate(editScreenRoute, args = listOf(navArgument(Uri.encode(noteId))))
