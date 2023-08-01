@@ -18,7 +18,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.artha.todo.ui.theme.ComposeCodelabTheme
 
-const val homeRoute: String = ""
+const val homeRoute: String = "home"
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

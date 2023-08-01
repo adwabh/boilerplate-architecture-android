@@ -12,6 +12,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.artha.todo.ui.NotesList
 import com.artha.todo.ui.NotesTopBar
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -20,7 +21,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 @Composable
 fun HomeRoute(
     modifier: Modifier = Modifier,
-    viewModel: HomeViewModel = viewModel(),
+    viewModel: HomeViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.collectAsState()
     HomeScreen(
