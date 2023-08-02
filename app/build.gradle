@@ -56,7 +56,7 @@ dependencies {
 
     implementation 'androidx.compose.material3:material3:1.2.0-alpha03'
     implementation 'androidx.navigation:navigation-compose:2.6.0'
-    annotationProcessor 'androidx.room:room-compiler:2.5.2'
+    kapt 'androidx.room:room-compiler:2.5.2'
 //    implementation 'androidx.room:room-coroutines:2.5.2-alpha04'
     implementation "com.google.dagger:hilt-android:2.47"
     kapt "com.google.dagger:hilt-compiler:2.47"
