@@ -1,8 +1,11 @@
 package com.artha.todo.ui
 
 import android.content.res.Configuration.ORIENTATION_LANDSCAPE
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
@@ -14,10 +17,12 @@ import androidx.compose.ui.unit.dp
 import com.artha.todo.data.NoteData
 
 @OptIn(ExperimentalFoundationApi::class)
-@Preview
 @Composable
 fun NotesList(
-   notes: List<NoteData> = emptyList()
+   notes: List<NoteData> = emptyList(),
+   modifier: Modifier? = Modifier
+       .fillMaxSize()
+       .padding(8.dp)
 ) {
 
     val cellConfiguration = if (LocalConfiguration.current.orientation == ORIENTATION_LANDSCAPE) {
@@ -25,7 +30,7 @@ fun NotesList(
     } else StaggeredGridCells.Fixed(2)
 
     LazyVerticalStaggeredGrid(
-        modifier = Modifier.padding(8.dp),
+        modifier = modifier!!,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalItemSpacing = 8.dp,
 //        verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -43,3 +48,8 @@ fun NotesList(
         )
     }
 }
+
+@RequiresApi(Build.VERSION_CODES.O)
+@Preview
+@Composable
+fun  NotesItemPreview() = NotesList(PreviewUtils.DUMMY_NOTES)

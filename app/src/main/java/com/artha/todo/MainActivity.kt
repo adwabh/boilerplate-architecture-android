@@ -43,6 +43,7 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+
     }
 }
 
@@ -82,7 +83,9 @@ private fun NavGraphBuilder.homeScreen(onNoteClick: (String)->Unit) {
     composable(
         route = homeRoute
     ) {
-        HomeRoute()
+        HomeRoute(
+            modifier = Modifier.fillMaxSize()
+        )
     }
 }
 
