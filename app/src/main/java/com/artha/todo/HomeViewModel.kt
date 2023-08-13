@@ -16,8 +16,8 @@ import  com.artha.todo.network.Result
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    val repository: NotesRepository,
-    val userPreference: UserPreference
+    private val repository: NotesRepository,
+    private val userPreference: UserPreference
 ) : ViewModel() {
 
     val state: StateFlow<HomeState>

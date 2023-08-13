@@ -1,36 +1,40 @@
 package com.artha.todo.work
 
 import android.content.Context
+import androidx.hilt.work.HiltWorker
 import androidx.startup.AppInitializer
 import androidx.startup.Initializer
 import androidx.work.Constraints
+import androidx.work.CoroutineWorker
 import androidx.work.ExistingWorkPolicy
 import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequest
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.OutOfQuotaPolicy
 import androidx.work.WorkManager
-import androidx.work.WorkManagerInitializer
-import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.artha.todo.data.UserPreference
 import com.artha.todo.data.repo.NotesRepository
-import kotlinx.coroutines.runBlocking
-import javax.inject.Inject
+import dagger.Module
+import dagger.Provides
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 
-const val SyncWorkName = "NOTES_SYNC_WORK"
-
-class SyncWorker @Inject constructor(
-    context: Context,
-    workParams: WorkerParameters,
+@HiltWorker
+class SyncWorker @AssistedInject constructor(
+    @Assisted context: Context,
+    @Assisted workParams: WorkerParameters,
     private val repository: NotesRepository,
     private val userPreference: UserPreference
-) : Worker(context, workParams){
-    override fun doWork(): Result {
-        val result = runBlocking {
-            repository.syncNotes(userPreference.getCurrentUser())
-        }
-        return if(result) Result.success() else Result.failure()
+) : CoroutineWorker(context, workParams){
+
+    override suspend fun doWork(): Result {
+//        return Result.success()
+        val result = repository.syncNotes(userPreference.getCurrentUser())
+
+        return if(result) Result.success() else Result.retry()
     }
 }
 object SyncImpl : Sync {
@@ -52,21 +56,23 @@ object SyncImpl : Sync {
     }
 }
 
-object SyncInitializer : Initializer<SyncImpl> {
+@Module
+@InstallIn(SingletonComponent::class)
+object SyncInitializer : Initializer<WorkManager> {
 
-    override fun create(context: Context): SyncImpl {
-        WorkManager.getInstance(context).apply {
+    @Provides
+    override fun create(context: Context): WorkManager {
+        val instance = WorkManager.getInstance(context).apply {
             enqueueUniqueWork(
-                SyncWorkName,
+                SyncWorker::class.java.canonicalName,
                 ExistingWorkPolicy.KEEP,
                 SyncImpl.sync()
                 )
         }
-        return SyncImpl
+        return instance
     }
 
-    override fun dependencies(): List<Class<out Initializer<*>>> = listOf(
-        WorkManagerInitializer::class.java)
+    override fun dependencies(): List<Class<out Initializer<*>>> = emptyList()
 }
 interface Sync {
     abstract fun initialize(context: Context)

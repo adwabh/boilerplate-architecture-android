@@ -6,6 +6,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -16,9 +18,23 @@ object NetworkModule {
     fun providesGson() = Gson()
 
     @Provides
-    fun providesRetrofit(gson: Gson): NotesApiClient = Retrofit.Builder()
-        .baseUrl("https://notesapp.in")
-        .addConverterFactory(GsonConverterFactory.create(gson))
-        .build()
-        .create(NotesApiClient::class.java)
+    fun providesOkHttpClient(): OkHttpClient = OkHttpClient
+        .Builder()
+        .addInterceptor(
+            HttpLoggingInterceptor()
+                .setLevel(
+                    HttpLoggingInterceptor
+                        .Level
+                        .BODY
+                )
+        ).build()
+
+    @Provides
+    fun providesRetrofit(gson: Gson, okHttpClient: OkHttpClient): NotesApiClient =
+        Retrofit.Builder()
+            .baseUrl("https://demo3577351.mockable.io")
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .client(okHttpClient)
+            .build()
+            .create(NotesApiClient::class.java)
 }

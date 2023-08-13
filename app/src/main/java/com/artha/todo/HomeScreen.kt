@@ -39,19 +39,19 @@ fun HomeRoute(
         state
     )
 }
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(modifier: Modifier = Modifier.fillMaxSize(), state: State<HomeState>) {
     val snackbarHostState = remember { SnackbarHostState() }
-    when(val state = state.value) {
+    when (val state = state.value) {
         HomeState.LOADING -> {
             Scaffold(
                 modifier = modifier,
                 topBar = { NotesTopBar() },
                 snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
 
-            ) {
-                    paddingValues ->
+            ) { paddingValues ->
                 Box(modifier = modifier) {
                     CircularProgressIndicator(
                         modifier = Modifier
@@ -61,18 +61,19 @@ fun HomeScreen(modifier: Modifier = Modifier.fillMaxSize(), state: State<HomeSta
                 }
             }
         }
+
         is HomeState.SUCCESS -> {
             Scaffold(
                 modifier = modifier,
                 topBar = { NotesTopBar() },
                 snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
 
-            ) {
-                paddingValues ->
+            ) { paddingValues ->
                 paddingValues
                 NotesList(state.notes)
             }
         }
+
         HomeState.ERROR -> {
             LaunchedEffect(snackbarHostState) {
                 snackbarHostState.showSnackbar(
@@ -87,12 +88,13 @@ fun HomeScreen(modifier: Modifier = Modifier.fillMaxSize(), state: State<HomeSta
 
 @Preview
 @Composable
-fun HomeScreenPreview() = HomeScreen(modifier = Modifier.fillMaxSize(), state = object: State<HomeState> {
-    override val value: HomeState
-        @RequiresApi(Build.VERSION_CODES.O)
-        get() {
-            return HomeState.SUCCESS(DUMMY_NOTES)
-        }
+fun HomeScreenPreview() =
+    HomeScreen(modifier = Modifier.fillMaxSize(), state = object : State<HomeState> {
+        override val value: HomeState
+            @RequiresApi(Build.VERSION_CODES.O)
+            get() {
+                return HomeState.SUCCESS(DUMMY_NOTES)
+            }
 
-})
+    })
 
