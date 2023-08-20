@@ -11,6 +11,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
@@ -19,6 +20,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.max
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.artha.todo.data.NoteData
@@ -33,7 +36,7 @@ fun HomeRoute(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
-    val state = viewModel.state.collectAsStateWithLifecycle()
+    val state = viewModel.state.collectAsStateWithLifecycle(HomeState.LOADING)
     HomeScreen(
         modifier,
         state
@@ -63,14 +66,13 @@ fun HomeScreen(modifier: Modifier = Modifier.fillMaxSize(), state: State<HomeSta
         }
 
         is HomeState.SUCCESS -> {
+            val topBarHeight = rememberTopAppBarState().heightOffsetLimit.dp
             Scaffold(
                 modifier = modifier,
                 topBar = { NotesTopBar() },
                 snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
-
             ) { paddingValues ->
-                paddingValues
-                NotesList(state.notes)
+                Box(modifier = Modifier.padding(top = paddingValues.calculateTopPadding())) { NotesList(state.notes) }
             }
         }
 

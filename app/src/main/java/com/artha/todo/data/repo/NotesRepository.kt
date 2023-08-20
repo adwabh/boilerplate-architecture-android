@@ -11,7 +11,7 @@ import com.artha.todo.network.NotesApiClient
 import com.artha.todo.network.NotesDataResponse
 import com.google.gson.Gson
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 interface NotesRepository {
@@ -23,17 +23,19 @@ class NotesRepositoryImpl @Inject constructor(
     private val notesDao: NotesDao,
     private val notesApiClient: NotesApiClient,
     private val gson: Gson
-): NotesRepository {
+) : NotesRepository {
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    val mapper: suspend (value: List<NotesEntity>) ->List<NoteData> = {
+        it.map { entity ->
+            entity.fromEntity(gson)
+        }
+    }
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun getNotes(user: User, index: Int, offset: Int): Flow<List<NoteData>> {
-        return flow {
-            notesDao.findNotes(user.id)
-                .collect {
-                    it.map {
-                        entity -> entity.fromEntity(gson)
-                    }
-                }
-        }
+        return notesDao.findNotes(user.id)
+            .map(mapper)
     }
 
     override suspend fun syncNotes(user: User): Boolean {
@@ -43,8 +45,8 @@ class NotesRepositoryImpl @Inject constructor(
         val transform: (NotesDataResponse) -> NotesEntity = {
             it.toEntity(user, gson)
         }
-        val isSuccess = notesRes.isSuccessful && notesRes.body()?.success?:false
-        if(isSuccess) {
+        val isSuccess = notesRes.isSuccessful && notesRes.body()?.success ?: false
+        if (isSuccess) {
             val noteList = notesRes.body()!!.data
             val notes = noteList!!.map(transform).toTypedArray()
             notesDao.updateNotes(*notes)

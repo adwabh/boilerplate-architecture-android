@@ -24,7 +24,7 @@ import com.artha.todo.R
 @Composable
 fun NotesTopBar() {
     return TopAppBar(
-        title = { Text(text = "AppBar") },
+        title = { Text(text = "Notes") },
         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(),
         navigationIcon = {
 //          IconToggleButton(

@@ -13,6 +13,8 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 import  com.artha.todo.network.Result
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.shareIn
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
@@ -20,15 +22,16 @@ class HomeViewModel @Inject constructor(
     private val userPreference: UserPreference
 ) : ViewModel() {
 
-    val state: StateFlow<HomeState>
+    val state: SharedFlow<HomeState>
         get() {
-            return repository.getNotes(userPreference.getCurrentUser(), 0,0)
+            val state = repository.getNotes(userPreference.getCurrentUser(), 0, 0)
                 .asResult()
                 .map(::mapToState)
-                .stateIn(viewModelScope,
-                started = SharingStarted.Eagerly,
-                initialValue = HomeState.LOADING
+                .shareIn(
+                    viewModelScope,
+                    started = SharingStarted.Eagerly,
                 )
+            return state
         }
     private fun mapToState(notes: Result<List<NoteData>>): HomeState = when(notes) {
         is Result.Success -> {
@@ -44,9 +47,9 @@ class HomeViewModel @Inject constructor(
 }
 
 sealed class HomeState {
-    object LOADING : HomeState()
+    data object LOADING : HomeState()
     data class SUCCESS(
         val notes: List<NoteData>
     ): HomeState()
-    object ERROR: HomeState()
+    data object ERROR: HomeState()
 }
