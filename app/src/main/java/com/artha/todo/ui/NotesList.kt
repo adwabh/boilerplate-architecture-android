@@ -19,10 +19,11 @@ import com.artha.todo.data.NoteData
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun NotesList(
-   notes: List<NoteData> = emptyList(),
-   modifier: Modifier? = Modifier
-       .fillMaxSize()
-       .padding(8.dp)
+    notes: List<NoteData> = emptyList(),
+    modifier: Modifier? = Modifier
+        .fillMaxSize()
+        .padding(8.dp),
+    onNoteClick: (String) -> Unit
 ) {
 
     val cellConfiguration = if (LocalConfiguration.current.orientation == ORIENTATION_LANDSCAPE) {
@@ -52,4 +53,4 @@ fun NotesList(
 @RequiresApi(Build.VERSION_CODES.O)
 @Preview
 @Composable
-fun  NotesItemPreview() = NotesList(PreviewUtils.DUMMY_NOTES)
+fun  NotesItemPreview() = NotesList(PreviewUtils.DUMMY_NOTES, onNoteClick = {})

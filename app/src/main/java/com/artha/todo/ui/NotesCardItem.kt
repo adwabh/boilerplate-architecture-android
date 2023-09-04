@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -21,31 +22,39 @@ import androidx.compose.ui.unit.sp
 fun NotesItem(
     title: String = "",
     body: String = "",
+    onItemClick: () -> Unit = {}
 //    isChecklist: Boolean,
 //    checkListItems: List<CheckListItem>
 ) {
-    if(title.isNotEmpty()) {
+    if (title.isNotEmpty()) {
         NotesItemWithTitle(
             title,
-            body
+            body,
+            onItemClick
         )
     } else {
         NotesItemWithoutTitle(
-            body
+            body,
+            onItemClick
         )
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NotesItemWithoutTitle(body: String = "") {
-    Card (
+fun NotesItemWithoutTitle(body: String = "", onItemClick: () -> Unit = {}) {
+    Card(
         modifier = Modifier
             .fillMaxHeight()
             .fillMaxWidth()
-            .clickable { },
-        elevation = CardDefaults.cardElevation(2.dp)
+            .clickable {
+                true
+                onItemClick
+            },
+        elevation = CardDefaults.cardElevation(2.dp),
+        onClick = onItemClick
     ) {
-        Column (Modifier.padding(10.dp)){
+        Column(Modifier.padding(10.dp)) {
             Text(
                 text = body
             )
@@ -55,22 +64,27 @@ fun NotesItemWithoutTitle(body: String = "") {
 
 @Preview
 @Composable
-fun NotesItemWithTitle(title: String = "", body: String = "") {
-    Card (
+fun NotesItemWithTitle(title: String = "", body: String = "", onItemClick: () -> Unit = {}) {
+    Card(
         modifier = Modifier
             .fillMaxHeight()
             .fillMaxWidth()
-            .clickable { },
+            .clickable {
+                true
+                onItemClick
+            },
         elevation = CardDefaults.cardElevation(2.dp)
     ) {
-        Column (Modifier.padding(10.dp)){
+        Column(Modifier.padding(10.dp)) {
             Text(
                 fontSize = 20.sp,
                 text = title
             )
-            Spacer(modifier = Modifier
-                .height(10.dp)
-                .fillMaxWidth())
+            Spacer(
+                modifier = Modifier
+                    .height(10.dp)
+                    .fillMaxWidth()
+            )
             Text(
                 text = body
             )

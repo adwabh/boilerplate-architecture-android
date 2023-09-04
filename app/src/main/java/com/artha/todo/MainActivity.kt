@@ -83,7 +83,8 @@ private fun NavGraphBuilder.homeScreen(onNoteClick: (String)->Unit) {
         route = homeRoute
     ) {
         HomeRoute(
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize(),
+            onNoteClick = onNoteClick
         )
     }
 }
