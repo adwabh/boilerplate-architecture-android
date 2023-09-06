@@ -107,5 +107,5 @@ fun HomeScreenPreview() =
                 return HomeState.SUCCESS(DUMMY_NOTES)
             }
 
-    }, onNoteClick = onNoteClick)
+    }, onNoteClick = {})
 

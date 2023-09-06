@@ -16,20 +16,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.artha.todo.data.NoteData
 
 @Preview
 @Composable
 fun NotesItem(
-    title: String = "",
-    body: String = "",
-    onItemClick: () -> Unit = {}
+    onItemClick: (String) -> Unit = {},
+    data: NoteData
 //    isChecklist: Boolean,
 //    checkListItems: List<CheckListItem>
 ) {
+    val title = data.title
+    val body = data.body
     if (title.isNotEmpty()) {
         NotesItemWithTitle(
-            title,
-            body,
+            data,
             onItemClick
         )
     } else {
@@ -42,7 +43,7 @@ fun NotesItem(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NotesItemWithoutTitle(body: String = "", onItemClick: () -> Unit = {}) {
+fun NotesItemWithoutTitle(body: String = "", onItemClick: (String) -> Unit = {}) {
     Card(
         modifier = Modifier
             .fillMaxHeight()
@@ -64,7 +65,7 @@ fun NotesItemWithoutTitle(body: String = "", onItemClick: () -> Unit = {}) {
 
 @Preview
 @Composable
-fun NotesItemWithTitle(title: String = "", body: String = "", onItemClick: () -> Unit = {}) {
+fun NotesItemWithTitle(data: NoteData, onItemClick: (String) -> Unit = {}) {
     Card(
         modifier = Modifier
             .fillMaxHeight()
@@ -78,7 +79,7 @@ fun NotesItemWithTitle(title: String = "", body: String = "", onItemClick: () ->
         Column(Modifier.padding(10.dp)) {
             Text(
                 fontSize = 20.sp,
-                text = title
+                text = data.title
             )
             Spacer(
                 modifier = Modifier
@@ -86,7 +87,7 @@ fun NotesItemWithTitle(title: String = "", body: String = "", onItemClick: () ->
                     .fillMaxWidth()
             )
             Text(
-                text = body
+                text = data.body
             )
         }
     }

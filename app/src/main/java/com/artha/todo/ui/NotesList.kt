@@ -41,10 +41,7 @@ fun NotesList(
             key = { index -> notes[index].id },
             count = notes.size,
             itemContent = {
-                NotesItem(
-                    notes[it].title,
-                    notes[it].body
-                )
+                NotesItem(data = notes[it], onItemClick = onNoteClick)
             }
         )
     }
