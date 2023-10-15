@@ -67,6 +67,7 @@ fun NotesHost(
                 noteId -> navController.navigateToNote(noteId)
             }
         )
+        viewNotes()
     }
 
 }

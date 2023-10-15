@@ -45,10 +45,10 @@ class NotesRepositoryImpl @Inject constructor(
         val transform: (NotesDataResponse) -> NotesEntity = {
             it.toEntity(user, gson)
         }
-        val isSuccess = notesRes.isSuccessful && notesRes.body()?.success ?: false
+        val isSuccess = notesRes.isSuccessful && notesRes.body()?.success ?: false && notesRes.body()!= null
         if (isSuccess) {
-            val noteList = notesRes.body()!!.data
-            val notes = noteList!!.map(transform).toTypedArray()
+            val noteList = notesRes.body()?.data?: emptyList()
+            val notes = noteList.map(transform).toTypedArray()
             notesDao.updateNotes(*notes)
         }
         return isSuccess
