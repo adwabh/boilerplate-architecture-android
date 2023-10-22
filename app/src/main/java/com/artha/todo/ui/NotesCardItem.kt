@@ -35,7 +35,7 @@ fun NotesItem(
         )
     } else {
         NotesItemWithoutTitle(
-            body,
+            data,
             onItemClick
         )
     }
@@ -43,21 +43,20 @@ fun NotesItem(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NotesItemWithoutTitle(body: String = "", onItemClick: (String) -> Unit = {}) {
+fun NotesItemWithoutTitle(data: NoteData, onItemClick: (String) -> Unit = {}) {
     Card(
         modifier = Modifier
             .fillMaxHeight()
             .fillMaxWidth()
             .clickable {
-                true
-                onItemClick
+                onItemClick(data.id)
             },
         elevation = CardDefaults.cardElevation(2.dp),
-        onClick = onItemClick
+        onClick = { onItemClick.invoke(data.id) }
     ) {
         Column(Modifier.padding(10.dp)) {
             Text(
-                text = body
+                text = data.body
             )
         }
     }
@@ -71,8 +70,7 @@ fun NotesItemWithTitle(data: NoteData, onItemClick: (String) -> Unit = {}) {
             .fillMaxHeight()
             .fillMaxWidth()
             .clickable {
-                true
-                onItemClick
+                onItemClick(data.id)
             },
         elevation = CardDefaults.cardElevation(2.dp)
     ) {
