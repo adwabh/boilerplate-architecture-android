@@ -99,13 +99,15 @@ fun onCreateNote() {
 
 @Preview
 @Composable
-fun HomeScreenPreview() =
-    HomeScreen(modifier = Modifier.fillMaxSize(), state = object : State<HomeState> {
+fun HomeScreenPreview() {
+    val state = object : State<HomeState> {
         override val value: HomeState
             @RequiresApi(Build.VERSION_CODES.O)
             get() {
                 return HomeState.SUCCESS(DUMMY_NOTES)
             }
 
-    }, onNoteClick = {})
+    }
+    HomeScreen(modifier = Modifier.fillMaxSize(), state = state, onNoteClick = {})
+}
 

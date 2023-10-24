@@ -1,5 +1,7 @@
 package com.artha.todo.di
 
+import com.artha.todo.NoteDetailRepository
+import com.artha.todo.NoteDetailRepositoryImpl
 import com.artha.todo.data.repo.NotesRepository
 import com.artha.todo.data.repo.NotesRepositoryImpl
 import dagger.Binds
@@ -15,4 +17,9 @@ abstract class RepositoryModule {
     abstract fun bindsNotesRepository(
         notesRepositoryImpl: NotesRepositoryImpl
     ) : NotesRepository
+
+    @Binds
+    abstract fun bindsNoteDetailRepository(
+        noteDetailRepositoryImpl: NoteDetailRepositoryImpl
+    ) : NoteDetailRepository
 }
