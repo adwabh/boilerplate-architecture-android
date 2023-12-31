@@ -40,11 +40,10 @@ class MainActivity : ComponentActivity() {
                         state = notesState,
                         navController = rememberNavController(),
 
-                    )
+                        )
                 }
             }
         }
-
     }
 }
 
@@ -65,8 +64,8 @@ fun NotesHost(
         startDestination = startDestination
     ) {
         homeScreen(
-            onNoteClick = {
-                noteId -> navController.navigateToNote(noteId)
+            onNoteClick = { noteId ->
+                navController.navigateToNote(noteId)
             }
         )
         viewNote()
@@ -91,7 +90,7 @@ private fun NavController.navigateToNote(noteId: String) {
     }
 }
 
-private fun NavGraphBuilder.homeScreen(onNoteClick: (String)->Unit) {
+private fun NavGraphBuilder.homeScreen(onNoteClick: (String) -> Unit) {
     composable(
         route = homeRoute
     ) {

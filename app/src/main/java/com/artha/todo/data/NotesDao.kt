@@ -13,6 +13,6 @@ interface NotesDao {
     @Query("SELECT * FROM notes where user_id = :userId")
     fun findNotes(userId: String) : Flow<List<NotesEntity>>
 
-    @Update(entity =  NotesEntity::class, onConflict = OnConflictStrategy.REPLACE)
+    @Update(onConflict = OnConflictStrategy.REPLACE)
     fun updateNotes(vararg notes: NotesEntity)
 }

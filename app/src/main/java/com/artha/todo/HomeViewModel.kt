@@ -1,5 +1,6 @@
 package com.artha.todo
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.artha.todo.data.NoteData
@@ -35,12 +36,15 @@ class HomeViewModel @Inject constructor(
         }
     private fun mapToState(notes: Result<List<NoteData>>): HomeState = when(notes) {
         is Result.Success -> {
+            Log.d(TAG_STATE,"mapTOState success = ${notes.data}")
             HomeState.SUCCESS(notes.data)
         }
         is Result.Error -> {
+            Log.d(TAG_STATE,"mapTOState Error ${notes.exception}")
             HomeState.ERROR
         }
         is Result.Loading -> {
+            Log.d(TAG_STATE,"mapTOState Loading..")
             HomeState.LOADING
         }
     }

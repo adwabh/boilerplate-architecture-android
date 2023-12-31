@@ -1,13 +1,19 @@
 package com.artha.todo
 
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
@@ -18,12 +24,15 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.artha.todo.ui.NotesList
 import com.artha.todo.ui.NotesTopBar
 import com.artha.todo.ui.PreviewUtils.DUMMY_NOTES
+
+const val TAG_STATE = "HOME_STATE"
 
 
 @Composable
@@ -33,6 +42,7 @@ fun HomeRoute(
     onNoteClick: (String) -> Unit
 ) {
     val state = viewModel.state.collectAsStateWithLifecycle(HomeState.LOADING)
+    Log.d(TAG_STATE,"fetched state in home route ${state.value}")
     HomeScreen(
         modifier,
         state,
@@ -49,7 +59,7 @@ fun HomeScreen(
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
     when (val state = state.value) {
-        HomeState.LOADING -> {
+        is HomeState.LOADING -> {
             Scaffold(
                 modifier = modifier,
                 topBar = { NotesTopBar() },
@@ -73,7 +83,7 @@ fun HomeScreen(
                 snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
                 floatingActionButton = {
                     FloatingActionButton(onClick = ::onCreateNote) {
-
+                        Icon(imageVector = Icons.Filled.Add, contentDescription = "Navigation icon")
                     }
                 }
             ) { paddingValues ->
@@ -81,7 +91,7 @@ fun HomeScreen(
             }
         }
 
-        HomeState.ERROR -> {
+        is HomeState.ERROR -> {
             LaunchedEffect(snackbarHostState) {
                 snackbarHostState.showSnackbar(
                     //FIXME: remove hardcoded message

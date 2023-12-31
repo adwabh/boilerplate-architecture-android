@@ -1,7 +1,9 @@
 package com.artha.todo.data.repo
 
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
+import com.artha.todo.TAG_STATE
 import com.artha.todo.data.NoteData
 import com.artha.todo.data.NoteData.Companion.fromEntity
 import com.artha.todo.data.NotesDao
@@ -27,6 +29,7 @@ class NotesRepositoryImpl @Inject constructor(
 
     @RequiresApi(Build.VERSION_CODES.O)
     val mapper: suspend (value: List<NotesEntity>) ->List<NoteData> = {
+        Log.d(TAG_STATE,"fetched db entity list = $it")
         it.map { entity ->
             entity.fromEntity(gson)
         }
@@ -34,6 +37,7 @@ class NotesRepositoryImpl @Inject constructor(
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun getNotes(user: User, index: Int, offset: Int): Flow<List<NoteData>> {
+        Log.d(TAG_STATE,"calling notesDao.findNotes for ${user.id}")
         return notesDao.findNotes(user.id)
             .map(mapper)
     }
@@ -46,10 +50,14 @@ class NotesRepositoryImpl @Inject constructor(
             it.toEntity(user, gson)
         }
         val isSuccess = notesRes.isSuccessful && notesRes.body()?.success ?: false && notesRes.body()!= null
+
         if (isSuccess) {
             val noteList = notesRes.body()?.data?: emptyList()
-            val notes = noteList.map(transform).toTypedArray()
-            notesDao.updateNotes(*notes)
+            Log.d(TAG_STATE,"API Notes success = $noteList")
+            val notes = noteList.map(transform)
+            Log.d(TAG_STATE,"sync updating db entity = $notes")
+            val notes1 = notes.toTypedArray()
+            notesDao.updateNotes(*notes1)
         }
         return isSuccess
     }
