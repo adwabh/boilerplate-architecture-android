@@ -1,7 +1,6 @@
 package com.artha.todo.data
 
 import androidx.room.Dao
-import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
@@ -15,4 +14,7 @@ interface NotesDao {
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     fun updateNotes(vararg notes: NotesEntity)
+
+    @Query("SELECT * FROM notes where id = :id and user_id = :userId")
+    fun findNoteById(id: String, userId: String): Flow<NotesEntity>
 }

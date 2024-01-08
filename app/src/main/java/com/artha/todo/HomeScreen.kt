@@ -116,7 +116,6 @@ fun HomeScreenPreview() {
             get() {
                 return HomeState.SUCCESS(DUMMY_NOTES)
             }
-
     }
     HomeScreen(modifier = Modifier.fillMaxSize(), state = state, onNoteClick = {})
 }

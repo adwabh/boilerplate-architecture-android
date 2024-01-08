@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
@@ -19,15 +20,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.artha.todo.HomeState
-import com.artha.todo.NoteDetail
 import com.artha.todo.ViewNotesState
 import com.artha.todo.ViewNotesViewModel
 import com.artha.todo.ui.NotesTopBar
 import com.artha.todo.ui.PreviewUtils.DUMMY_VIEW_DATA
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun ViewNotesRoute(
     modifier: Modifier,
@@ -60,9 +61,13 @@ fun ViewNotesScreen(modifier: Modifier, state: State<ViewNotesState>) {
                 }
 
                 is ViewNotesState.SUCCESS -> {
-                    Column {
+                    Column(modifier = Modifier.fillMaxSize()
+                        .padding(8.dp)
+                    ) {
                         with(state.note) {
-                            Text(text = title)
+                            Text(text = title,
+                                style = MaterialTheme.typography.bodyLarge,
+                                modifier = Modifier.padding(bottom = 8.dp))
                             Text(text = body)
                         }
                     }

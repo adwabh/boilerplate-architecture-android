@@ -1,61 +1,50 @@
 package com.artha.todo
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
-import com.artha.todo.network.NoteDetailResponse
+import androidx.lifecycle.viewModelScope
+import com.artha.todo.data.NoteData
+import com.artha.todo.data.NoteData.Companion.fromEntity
+import com.artha.todo.data.NotesDao
+import com.artha.todo.data.NotesEntity
+import com.artha.todo.data.UserPreference
 import com.artha.todo.network.NotesApiClient
+import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.channelFlow
-import retrofit2.awaitResponse
-import java.time.OffsetDateTime
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.shareIn
 import javax.inject.Inject
 
 @HiltViewModel
-class ViewNotesViewModel @Inject constructor(private val repository: NoteDetailRepository) : ViewModel() {
-    fun getNote(id: String) = channelFlow<ViewNotesState> {
-        repository.getNoteDetail(id)
-            .map {
-                ViewNotesState.SUCCESS(
-                    it.toDetail()
-                )
-            }
-    }
-}
+class ViewNotesViewModel @Inject constructor(private val repository: NoteDetailRepository, val gson: Gson) : ViewModel() {
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun getNote(id: String): SharedFlow<ViewNotesState> = repository.getNoteData(id)
+        .map { ViewNotesState.SUCCESS(it.fromEntity(gson)) }
+        .shareIn(
+            viewModelScope,
+            SharingStarted.Eagerly
+            )
 
-private fun NoteDetailResponse.toDetail(): NoteDetail = NoteDetail(
-    id,
-    createdDate,
-    updatedDate,
-    title,
-    body
-)
+
+}
 
 interface NoteDetailRepository {
-    suspend fun getNoteDetail(id: String): Result<NoteDetailResponse>
+    fun getNoteData(id: String): Flow<NotesEntity>
 }
-class NoteDetailRepositoryImpl @Inject constructor(val apiClient: NotesApiClient) : NoteDetailRepository {
-    override suspend fun getNoteDetail(id: String): Result<NoteDetailResponse> {
-        val res = apiClient.getNoteDetail(id).awaitResponse()
-        return if (res.isSuccessful) {
-            res.body()?.let { Result.success(it) }?: Result.failure(Exception(""))
-        } else {
-            Result.failure(Exception("Error"))
-        }
+class NoteDetailRepositoryImpl @Inject constructor(val apiClient: NotesApiClient, val notesDao: NotesDao, val userPreference: UserPreference) : NoteDetailRepository {
+    override fun getNoteData(id: String): Flow<NotesEntity> {
+        return notesDao.findNoteById(id, userPreference.getCurrentUser().id)
     }
-
 }
 
 sealed class ViewNotesState {
     data object LOADING : ViewNotesState()
     data class SUCCESS(
-        val note: NoteDetail
+        val note: NoteData
     ): ViewNotesState()
     data object ERROR: ViewNotesState()
 }
-
-data class NoteDetail(
-    val id: String,
-    val createdDate: OffsetDateTime,
-    val updatedDate: OffsetDateTime,
-    val title: String,
-    val body: String
-)
